@@ -34,6 +34,11 @@ public class EmpleadoServicio {
 
         Empleado empleado = new Empleado();
 
+        if (parametros.getEmpleadoId() != null){
+            empleado = empleadoRepositorio.getOne(parametros.getEmpleadoId());
+        }
+
+
         empleado.setNombre(parametros.getEmpleado());
         empleado.setFechaNacimiento(parametros.getFecha());
         empleado.setApellido(parametros.getApellido());
@@ -41,6 +46,25 @@ public class EmpleadoServicio {
         empleadoRepositorio.save(empleado);
 
 
+        return true;
+    }
+
+    public Boolean actualizarEmpleado(EmpleadoDTO parametros) {
+
+        Empleado empleado = empleadoRepositorio.getOne(parametros.getEmpleadoId());
+        empleado.setNombre(parametros.getEmpleado());
+        empleado.setFechaNacimiento(parametros.getFecha());
+        empleado.setApellido(parametros.getApellido());
+
+        empleadoRepositorio.save(empleado);
+
+
+        return true;
+    }
+
+    public Boolean eliminarEmpleado(Long idEmpleado) {
+        Empleado empleado = empleadoRepositorio.getOne(idEmpleado);
+        empleadoRepositorio.delete(empleado);
         return true;
     }
 }

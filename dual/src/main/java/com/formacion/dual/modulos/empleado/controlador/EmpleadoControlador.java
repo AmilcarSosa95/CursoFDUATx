@@ -35,4 +35,15 @@ public class EmpleadoControlador {
         return new ResponseEntity<>(respuesta, HttpStatus.OK);
     }
 
+    @PutMapping("actualizar")
+    public ResponseEntity<Boolean> actualizarEmpleado(@RequestBody EmpleadoDTO parametros){
+        Boolean respuesta = empleadoServicio.actualizarEmpleado(parametros);
+        return new ResponseEntity<>(respuesta, HttpStatus.OK);
+    }
+    @DeleteMapping("eliminar")
+    public ResponseEntity<Boolean> eliminarEmpleado(@RequestParam Long idEmpleado){
+        Boolean respuesta = empleadoServicio.eliminarEmpleado(idEmpleado);
+        return new ResponseEntity<>(respuesta, HttpStatus.OK);
+    }
+
 }
