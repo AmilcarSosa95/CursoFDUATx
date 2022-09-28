@@ -17,7 +17,7 @@ public class EmpleadoServicio {
     private EmpleadoRepositorio empleadoRepositorio;
     public List<EmpleadoDTO> obtenerEmpleado(){
         List<Empleado> lista = empleadoRepositorio.findAll();
-        return  lista.stream().map(e -> new EmpleadoDTO(e.getIdEmpleado(),e.getNombre())).collect(Collectors.toList());
+        return  lista.stream().map(e -> new EmpleadoDTO(e.getIdEmpleado(),e.getNombre(), e.getApellido() ,e.getFechaNacimiento())).collect(Collectors.toList());
     }
 
     public EmpleadoDTO obtenerEmpleadoPorId(Long idEmpleado){
@@ -28,5 +28,19 @@ public class EmpleadoServicio {
         }
 
         return null;
+    }
+
+    public Boolean guardarEmpelado(EmpleadoDTO parametros) {
+
+        Empleado empleado = new Empleado();
+
+        empleado.setNombre(parametros.getEmpleado());
+        empleado.setFechaNacimiento(parametros.getFecha());
+        empleado.setApellido(parametros.getApellido());
+
+        empleadoRepositorio.save(empleado);
+
+
+        return true;
     }
 }

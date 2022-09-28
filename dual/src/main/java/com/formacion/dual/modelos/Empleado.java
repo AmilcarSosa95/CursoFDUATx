@@ -1,9 +1,6 @@
 package com.formacion.dual.modelos;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
@@ -11,6 +8,7 @@ import java.sql.Date;
 public class Empleado {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long idEmpleado;
 
@@ -42,7 +40,13 @@ public class Empleado {
     }
 
 
+    public String getApellido() {
+        return apellido;
+    }
 
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
 
     public Date getFechaNacimiento() {
         return fechaNacimiento;
