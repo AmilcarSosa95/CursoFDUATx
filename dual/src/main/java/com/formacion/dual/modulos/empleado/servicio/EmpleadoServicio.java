@@ -16,8 +16,10 @@ public class EmpleadoServicio {
     @Autowired
     private EmpleadoRepositorio empleadoRepositorio;
     public List<EmpleadoDTO> obtenerEmpleado(){
+
+//        return empleadoRepositorio.obtenerEmpleadoActivosDTO();
         List<Empleado> lista = empleadoRepositorio.findAll();
-        return  lista.stream().map(e -> new EmpleadoDTO(e.getIdEmpleado(),e.getNombre(), e.getApellido() ,e.getFechaNacimiento())).collect(Collectors.toList());
+        return  lista.stream().map(EmpleadoDTO::new).collect(Collectors.toList());
     }
 
     public EmpleadoDTO obtenerEmpleadoPorId(Long idEmpleado){
@@ -65,6 +67,13 @@ public class EmpleadoServicio {
     public Boolean eliminarEmpleado(Long idEmpleado) {
         Empleado empleado = empleadoRepositorio.getOne(idEmpleado);
         empleadoRepositorio.delete(empleado);
+        return true;
+    }
+
+    public Boolean activarInactivar(EmpleadoDTO idEmpleado) {
+        Empleado empleado = empleadoRepositorio.getOne(idEmpleado.getEmpleadoId());
+        empleado.setRegistroActivo(!empleado.getRegistroActivo());
+        empleadoRepositorio.save(empleado);
         return true;
     }
 }

@@ -1,7 +1,9 @@
 package com.formacion.dual.modulos.empleado.dto;
 
+import com.formacion.dual.modelos.Area;
+import com.formacion.dual.modelos.Empleado;
+
 import java.sql.Date;
-import java.text.DateFormat;
 
 public class EmpleadoDTO {
 
@@ -11,6 +13,8 @@ public class EmpleadoDTO {
     private String apellido;
 
     private Date fecha;
+
+    private AreaDTO area;
 
     public EmpleadoDTO() {
         super();
@@ -27,6 +31,25 @@ public class EmpleadoDTO {
         this.empleado = empleado;
         this.apellido = apellido;
         this.fecha = fecha;
+    }
+
+
+    public EmpleadoDTO(Long empleadoId, String empleado, String apellido, Date fecha, Area area) {
+        this.empleadoId = empleadoId;
+        this.empleado = empleado;
+        this.apellido = apellido;
+        this.fecha = fecha;
+        if (area != null){
+            this.area = new AreaDTO(area.getIdArea(), area.getNombre());
+        }
+    }
+
+    public EmpleadoDTO(Empleado e) {
+        this.empleadoId = e.getIdEmpleado();
+        this.empleado = e.getNombre();
+        this.apellido = e.getApellido();
+        this.fecha = e.getFechaNacimiento();
+        this.area = new AreaDTO(e.getArea());
     }
 
     public String getApellido() {
@@ -59,5 +82,14 @@ public class EmpleadoDTO {
 
     public void setEmpleado(String empleado) {
         this.empleado = empleado;
+    }
+
+
+    public AreaDTO getArea() {
+        return area;
+    }
+
+    public void setArea(AreaDTO area) {
+        this.area = area;
     }
 }

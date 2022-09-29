@@ -45,5 +45,10 @@ public class EmpleadoControlador {
         Boolean respuesta = empleadoServicio.eliminarEmpleado(idEmpleado);
         return new ResponseEntity<>(respuesta, HttpStatus.OK);
     }
+    @PutMapping("activar-inactivar")
+    public ResponseEntity<Boolean> activarInactivar(@RequestBody EmpleadoDTO empleado){
+        Boolean respuesta = empleadoServicio.activarInactivar(empleado);
+        return new ResponseEntity<>(respuesta, HttpStatus.OK);
+    }
 
 }

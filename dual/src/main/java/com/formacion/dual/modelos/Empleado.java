@@ -21,6 +21,12 @@ public class Empleado {
     @Column
     private Date fechaNacimiento;
 
+    @Column
+    private Boolean registroActivo;
+
+    @JoinColumn(name = "id_area")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Area area;
 
 
     public Long getIdEmpleado() {
@@ -54,5 +60,21 @@ public class Empleado {
 
     public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public Boolean getRegistroActivo() {
+        return registroActivo;
+    }
+
+    public void setRegistroActivo(Boolean registroActivo) {
+        this.registroActivo = registroActivo;
+    }
+
+    public Area getArea() {
+        return area;
+    }
+
+    public void setArea(Area area) {
+        this.area = area;
     }
 }
