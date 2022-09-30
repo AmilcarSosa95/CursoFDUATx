@@ -22,6 +22,11 @@ public class EmpleadoControlador {
         List<EmpleadoDTO> respuesta = empleadoServicio.obtenerEmpleado();
         return new ResponseEntity<>(respuesta, HttpStatus.OK);
     }
+    @GetMapping("obtener/empleados/por-area")
+    public ResponseEntity<List<EmpleadoDTO>> obtenerEmpleadosPorArea(@RequestParam Integer idArea){
+        List<EmpleadoDTO> respuesta = empleadoServicio.obtenerEmpleadoPorArea(idArea);
+        return new ResponseEntity<>(respuesta, HttpStatus.OK);
+    }
 
     @GetMapping("obtener/id")
     public ResponseEntity<EmpleadoDTO> obtenerEmpleados(@RequestParam Long idEmpleado){
@@ -46,8 +51,8 @@ public class EmpleadoControlador {
         return new ResponseEntity<>(respuesta, HttpStatus.OK);
     }
     @PutMapping("activar-inactivar")
-    public ResponseEntity<Boolean> activarInactivar(@RequestBody EmpleadoDTO empleado){
-        Boolean respuesta = empleadoServicio.activarInactivar(empleado);
+    public ResponseEntity<Boolean> activarInactivar(@RequestParam Long idEmpleado){
+        Boolean respuesta = empleadoServicio.activarInactivar(idEmpleado);
         return new ResponseEntity<>(respuesta, HttpStatus.OK);
     }
 

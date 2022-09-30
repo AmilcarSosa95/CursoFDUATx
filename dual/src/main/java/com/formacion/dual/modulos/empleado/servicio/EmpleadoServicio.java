@@ -1,7 +1,9 @@
 package com.formacion.dual.modulos.empleado.servicio;
 
+import com.formacion.dual.modelos.Area;
 import com.formacion.dual.modelos.Empleado;
 import com.formacion.dual.modulos.empleado.dto.EmpleadoDTO;
+import com.formacion.dual.repositorios.AreaRespositorio;
 import com.formacion.dual.repositorios.EmpleadoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,11 @@ public class EmpleadoServicio {
 
     @Autowired
     private EmpleadoRepositorio empleadoRepositorio;
+
+    @Autowired
+    private AreaRespositorio areaRespositorio;
+
+
     public List<EmpleadoDTO> obtenerEmpleado(){
 
 //        return empleadoRepositorio.obtenerEmpleadoActivosDTO();
@@ -70,10 +77,15 @@ public class EmpleadoServicio {
         return true;
     }
 
-    public Boolean activarInactivar(EmpleadoDTO idEmpleado) {
-        Empleado empleado = empleadoRepositorio.getOne(idEmpleado.getEmpleadoId());
+    public Boolean activarInactivar(Long idEmpleado) {
+        Empleado empleado = empleadoRepositorio.getOne(idEmpleado);
         empleado.setRegistroActivo(!empleado.getRegistroActivo());
         empleadoRepositorio.save(empleado);
         return true;
+    }
+
+    public List<EmpleadoDTO> obtenerEmpleadoPorArea(Integer idArea) {
+        List<Empleado> lista =  empleadoRepositorio.obtenerEmpeladosPorArea(idArea);
+        return  lista.stream().map(EmpleadoDTO::new).collect(Collectors.toList());
     }
 }
